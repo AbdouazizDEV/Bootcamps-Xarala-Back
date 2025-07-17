@@ -227,30 +227,30 @@ src/
 
 ## 🚀 Déploiement
 
-### Déploiement sur Render
+### Déploiement sur Vercel
 
-Le projet est configuré pour un déploiement automatique sur Render.
+Le projet est configuré pour un déploiement automatique sur Vercel.
 
 #### Configuration automatique
 
-Le fichier `render.yaml` configure automatiquement :
-- Service web Node.js
+Le fichier `vercel.json` configure automatiquement :
+- Framework NestJS
 - Base de données PostgreSQL
 - Variables d'environnement
-- Health checks
+- Déploiement automatique
 
 #### Déploiement rapide
 
-1. **Connectez votre dépôt Git à Render**
-2. **Créez un nouveau Blueprint** dans Render
-3. **Sélectionnez votre dépôt**
-4. **Render utilisera automatiquement le fichier `render.yaml`**
+1. **Connectez votre dépôt Git à Vercel**
+2. **Importez votre projet** dans Vercel
+3. **Configurez la base de données** (Vercel Postgres ou Supabase)
+4. **Vercel détectera automatiquement la configuration NestJS**
 
 #### Variables d'environnement
 
-Render génère automatiquement :
+Vercel nécessite :
 - `DATABASE_URL` (connexion PostgreSQL)
-- `JWT_SECRET` et `JWT_REFRESH_SECRET` (générés automatiquement)
+- `JWT_SECRET` et `JWT_REFRESH_SECRET` (à configurer manuellement)
 
 #### Données par défaut
 
@@ -263,24 +263,24 @@ Après le déploiement :
 
 ```bash
 # Health check
-curl https://votre-app.onrender.com/api/health
+curl https://votre-app.vercel.app/api/health
 
 # Documentation
-https://votre-app.onrender.com/api/docs
+https://votre-app.vercel.app/api/docs
 ```
 
-📖 **Guide complet**: Voir [DEPLOYMENT.md](./DEPLOYMENT.md) pour les détails complets.
+📖 **Guide complet**: Voir [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) pour les détails complets.
 
 ### Déploiement manuel
 
 Si vous préférez configurer manuellement :
 
-1. **Créez un service web** dans Render
-2. **Configurez la base de données PostgreSQL**
+1. **Créez un projet** dans Vercel
+2. **Configurez la base de données** (Vercel Postgres ou externe)
 3. **Ajoutez les variables d'environnement**
 4. **Déployez depuis votre dépôt Git**
 
-Voir le guide détaillé dans `DEPLOYMENT.md`.
+Voir le guide détaillé dans `VERCEL_DEPLOYMENT.md`.
 
 ### Variables d'environnement de production
 ```env
