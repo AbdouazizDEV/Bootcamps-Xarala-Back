@@ -227,6 +227,61 @@ src/
 
 ## 🚀 Déploiement
 
+### Déploiement sur Render
+
+Le projet est configuré pour un déploiement automatique sur Render.
+
+#### Configuration automatique
+
+Le fichier `render.yaml` configure automatiquement :
+- Service web Node.js
+- Base de données PostgreSQL
+- Variables d'environnement
+- Health checks
+
+#### Déploiement rapide
+
+1. **Connectez votre dépôt Git à Render**
+2. **Créez un nouveau Blueprint** dans Render
+3. **Sélectionnez votre dépôt**
+4. **Render utilisera automatiquement le fichier `render.yaml`**
+
+#### Variables d'environnement
+
+Render génère automatiquement :
+- `DATABASE_URL` (connexion PostgreSQL)
+- `JWT_SECRET` et `JWT_REFRESH_SECRET` (générés automatiquement)
+
+#### Données par défaut
+
+Après le déploiement :
+- **Admin**: `admin@xarala.sn` / `admin123`
+- **Bootcamps**: 3 bootcamps de démonstration
+- **Leads**: 3 leads d'exemple
+
+#### Vérification
+
+```bash
+# Health check
+curl https://votre-app.onrender.com/api/health
+
+# Documentation
+https://votre-app.onrender.com/api/docs
+```
+
+📖 **Guide complet**: Voir [DEPLOYMENT.md](./DEPLOYMENT.md) pour les détails complets.
+
+### Déploiement manuel
+
+Si vous préférez configurer manuellement :
+
+1. **Créez un service web** dans Render
+2. **Configurez la base de données PostgreSQL**
+3. **Ajoutez les variables d'environnement**
+4. **Déployez depuis votre dépôt Git**
+
+Voir le guide détaillé dans `DEPLOYMENT.md`.
+
 ### Variables d'environnement de production
 ```env
 NODE_ENV=production

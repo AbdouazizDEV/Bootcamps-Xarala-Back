@@ -8,6 +8,7 @@ import { getDatabaseConfig } from './config/database.config';
 import { Admin } from './database/entities/admin.entity';
 import { Bootcamp } from './database/entities/bootcamp.entity';
 import { Lead } from './database/entities/lead.entity';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -25,5 +26,6 @@ import { Lead } from './database/entities/lead.entity';
     BootcampsModule,
     LeadsModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {} 
