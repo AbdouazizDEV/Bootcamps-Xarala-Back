@@ -1,9 +1,9 @@
-<<<<<<< HEAD
-# API Xarala Bootcamps 🚀
+
+# API Xarala Bootcamps 
 
 API REST complète pour la plateforme d'inscription aux bootcamps Xarala, développée avec NestJS et PostgreSQL.
 
-## 🛠️ Stack Technique
+##  Stack Technique
 
 - **Framework**: NestJS (dernière version)
 - **Base de données**: PostgreSQL avec TypeORM
@@ -12,14 +12,14 @@ API REST complète pour la plateforme d'inscription aux bootcamps Xarala, dével
 - **Validation**: class-validator + class-transformer
 - **Architecture**: Clean Architecture + principes SOLID
 
-## 📋 Fonctionnalités
+##  Fonctionnalités
 
-### 🔐 Authentification Admin
+###  Authentification Admin
 - Connexion sécurisée avec JWT
 - Gestion des tokens d'accès
 - Profil administrateur
 
-### 🎓 Gestion des Bootcamps
+###  Gestion des Bootcamps
 - **Endpoints publics**:
   - `GET /api/v1/bootcamps` - Liste tous les bootcamps actifs
   - `GET /api/v1/bootcamps/:id` - Détails d'un bootcamp
@@ -29,7 +29,7 @@ API REST complète pour la plateforme d'inscription aux bootcamps Xarala, dével
   - `PUT /api/v1/bootcamps/:id` - Modifier un bootcamp
   - `DELETE /api/v1/bootcamps/:id` - Supprimer un bootcamp
 
-### 📝 Gestion des Leads
+###  Gestion des Leads
 - **Endpoints publics**:
   - `POST /api/v1/leads` - Créer un lead (formulaire d'intérêt)
 
@@ -38,7 +38,7 @@ API REST complète pour la plateforme d'inscription aux bootcamps Xarala, dével
   - `GET /api/v1/leads/:id` - Détails d'un lead
   - `PATCH /api/v1/leads/:id/status` - Changer le statut d'un lead
 
-## 🚀 Installation et Configuration
+##  Installation et Configuration
 
 ### Prérequis
 - Node.js (v18+)
@@ -256,11 +256,8 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 Pour toute question ou problème :
 - Ouvrir une issue sur GitHub
-- Contacter l'équipe Xarala
+- Contacter le Baol-Baol
 
 ---
 
-**Développé avec ❤️ par l'équipe Xarala** 
-=======
-# Bootcamps-Xarala-Back
->>>>>>> fb4500e0eee251e27fca193f58da19edaacc674c
+**Développé avec ❤️ par le Baol-Baol Abdou Aziz DIOP** 
