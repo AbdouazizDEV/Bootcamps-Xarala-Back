@@ -135,12 +135,12 @@ fi
 # Vérifier les entités
 print_status "Vérification des entités..."
 
-ENTITIES=("Admin" "Bootcamp" "Lead")
+ENTITIES=("admin" "bootcamp" "lead")
 for entity in "${ENTITIES[@]}"; do
     if [ -f "src/database/entities/${entity}.entity.ts" ]; then
-        print_success "✓ Entité $entity"
+        print_success "✓ Entité ${entity^}"
     else
-        print_error "✗ Entité $entity manquante"
+        print_error "✗ Entité ${entity^} manquante"
         exit 1
     fi
 done
