@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # API Xarala Bootcamps 🚀
 
 API REST complète pour la plateforme d'inscription aux bootcamps Xarala, développée avec NestJS et PostgreSQL.
@@ -260,3 +261,6 @@ Pour toute question ou problème :
 ---
 
 **Développé avec ❤️ par l'équipe Xarala** 
+=======
+# Bootcamps-Xarala-Back
+>>>>>>> fb4500e0eee251e27fca193f58da19edaacc674c
