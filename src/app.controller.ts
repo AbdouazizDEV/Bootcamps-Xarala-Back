@@ -1,11 +1,17 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { getRepository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Admin } from './database/entities/admin.entity';
 
 @Controller()
 export class AppController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @InjectRepository(Admin)
+    private readonly adminRepository: Repository<Admin>,
+  ) {}
 
   @Get()
   getHello() {
@@ -72,10 +78,8 @@ export class AppController {
   @Post('setup-admin')
   async setupAdmin() {
     try {
-      const adminRepository = getRepository('Admin');
-      
       // Vérifier si l'admin existe déjà
-      const existingAdmin = await adminRepository.findOne({ where: { email: 'admin@xarala.sn' } });
+      const existingAdmin = await this.adminRepository.findOne({ where: { email: 'admin@xarala.sn' } });
       
       if (existingAdmin) {
         return {
@@ -92,15 +96,13 @@ export class AppController {
       // Créer l'admin
       const hashedPassword = await bcrypt.hash('admin123', 10);
       
-      const admin = adminRepository.create({
+      const admin = this.adminRepository.create({
         email: 'admin@xarala.sn',
-        password: hashedPassword,
-        firstName: 'Admin',
-        lastName: 'Xarala',
-        role: 'admin',
+        password: 'admin123', // Sera hashé automatiquement par BeforeInsert
+        name: 'Admin Xarala',
       });
       
-      await adminRepository.save(admin);
+      await this.adminRepository.save(admin);
       
       return {
         success: true,
