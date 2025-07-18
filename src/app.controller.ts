@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { getRepository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Controller()
 export class AppController {
@@ -65,5 +67,56 @@ export class AppController {
       },
       timestamp: new Date().toISOString(),
     };
+  }
+
+  @Post('setup-admin')
+  async setupAdmin() {
+    try {
+      const adminRepository = getRepository('Admin');
+      
+      // Vérifier si l'admin existe déjà
+      const existingAdmin = await adminRepository.findOne({ where: { email: 'admin@xarala.sn' } });
+      
+      if (existingAdmin) {
+        return {
+          success: true,
+          message: 'L\'administrateur existe déjà',
+          data: {
+            email: 'admin@xarala.sn',
+            password: 'admin123'
+          },
+          timestamp: new Date().toISOString(),
+        };
+      }
+      
+      // Créer l'admin
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      
+      const admin = adminRepository.create({
+        email: 'admin@xarala.sn',
+        password: hashedPassword,
+        firstName: 'Admin',
+        lastName: 'Xarala',
+        role: 'admin',
+      });
+      
+      await adminRepository.save(admin);
+      
+      return {
+        success: true,
+        message: 'Administrateur créé avec succès',
+        data: {
+          email: 'admin@xarala.sn',
+          password: 'admin123'
+        },
+        timestamp: new Date().toISOString(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message,
+        timestamp: new Date().toISOString(),
+      };
+    }
   }
 } 

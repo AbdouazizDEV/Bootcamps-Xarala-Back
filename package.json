@@ -22,7 +22,8 @@
     "migration:run": "typeorm migration:run -d typeorm.config.ts",
     "migration:revert": "typeorm migration:revert -d typeorm.config.ts",
     "seed": "node seed.js",
-    "seed:prod": "node seed-production.js"
+    "seed:prod": "node seed-production.js",
+    "seed:prod:simple": "node seed-production-simple.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
