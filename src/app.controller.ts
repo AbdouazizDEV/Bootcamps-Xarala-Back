@@ -1,36 +1,68 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
-@ApiTags('App')
 @Controller()
 export class AppController {
+  constructor(private readonly configService: ConfigService) {}
+
   @Get()
-  @ApiOperation({ summary: 'Page d\'accueil' })
-  @ApiResponse({ status: 200, description: 'Bienvenue sur l\'API Xarala Bootcamp' })
-  getHello(): { message: string; version: string; timestamp: string } {
+  getHello() {
     return {
-      message: 'Bienvenue sur l\'API Xarala Bootcamp',
-      version: '1.0.0',
+      success: true,
+      data: {
+        message: 'Bienvenue sur l\'API Xarala Bootcamp',
+        version: '1.0.0',
+        timestamp: new Date().toISOString(),
+      },
       timestamp: new Date().toISOString(),
     };
   }
 
   @Get('health')
-  @ApiOperation({ summary: 'Health check' })
-  @ApiResponse({ status: 200, description: 'Service en ligne' })
-  healthCheck(): { status: string; timestamp: string } {
+  getHealth() {
     return {
-      status: 'OK',
+      success: true,
+      data: {
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+      },
       timestamp: new Date().toISOString(),
     };
   }
 
   @Get('api/health')
-  @ApiOperation({ summary: 'Health check pour Render' })
-  @ApiResponse({ status: 200, description: 'Service en ligne' })
-  renderHealthCheck(): { status: string; timestamp: string } {
+  getApiHealth() {
     return {
-      status: 'OK',
+      success: true,
+      data: {
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+      },
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  @Get('debug')
+  getDebug() {
+    const nodeEnv = this.configService.get('NODE_ENV');
+    const databaseUrl = this.configService.get('DATABASE_URL');
+    const dbHost = this.configService.get('DB_HOST');
+    const dbPort = this.configService.get('DB_PORT');
+    const dbUsername = this.configService.get('DB_USERNAME');
+    const dbName = this.configService.get('DB_NAME');
+    
+    return {
+      success: true,
+      data: {
+        nodeEnv,
+        hasDatabaseUrl: !!databaseUrl,
+        databaseUrl: databaseUrl ? `${databaseUrl.substring(0, 20)}...` : null,
+        dbHost,
+        dbPort,
+        dbUsername,
+        dbName,
+        timestamp: new Date().toISOString(),
+      },
       timestamp: new Date().toISOString(),
     };
   }
