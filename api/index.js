@@ -14,8 +14,25 @@ async function bootstrap() {
       });
       
       app = await NestFactory.create(AppModule);
+      
+      // Configuration CORS explicite pour Vercel
+      const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'https://bootcampsxaralafront.netlify.app',
+        'https://bootcamps-xarala-front.netlify.app'
+      ];
+      
+      app.enableCors({
+        origin: allowedOrigins,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+      });
+      
       await app.init();
       console.log('✅ Application NestJS initialisée avec succès');
+      console.log('🌐 CORS configuré pour les origines:', allowedOrigins);
     } catch (error) {
       console.error('❌ Erreur lors de l\'initialisation:', error);
       console.error('📋 Détails de l\'erreur:', {
