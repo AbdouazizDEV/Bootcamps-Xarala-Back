@@ -3,21 +3,38 @@ import { ConfigService } from '@nestjs/config';
 
 export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOptions => {
   const databaseUrl = configService.get('DATABASE_URL');
+  const nodeEnv = configService.get('NODE_ENV', 'development');
   
-  if (databaseUrl) {
-    // Configuration pour Render avec DATABASE_URL
+  // En production, forcer l'utilisation de DATABASE_URL
+  if (databaseUrl && nodeEnv === 'production') {
+    console.log('🔗 Utilisation de DATABASE_URL pour la production');
     return {
       type: 'postgres',
       url: databaseUrl,
       entities: [__dirname + '/../database/entities/*.entity{.ts,.js}'],
       migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-      synchronize: configService.get('NODE_ENV') === 'development',
-      logging: configService.get('NODE_ENV') === 'development',
-      ssl: configService.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
+      synchronize: false, // Ne jamais synchroniser en production
+      logging: false, // Pas de logging en production
+      ssl: { rejectUnauthorized: false },
+    };
+  }
+  
+  // En développement, utiliser DATABASE_URL si disponible, sinon configuration locale
+  if (databaseUrl) {
+    console.log('🔗 Utilisation de DATABASE_URL pour le développement');
+    return {
+      type: 'postgres',
+      url: databaseUrl,
+      entities: [__dirname + '/../database/entities/*.entity{.ts,.js}'],
+      migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
+      synchronize: true,
+      logging: true,
+      ssl: false,
     };
   }
 
-  // Configuration locale
+  // Configuration locale (fallback)
+  console.log('🏠 Utilisation de la configuration locale');
   return {
     type: 'postgres',
     host: configService.get('DB_HOST', 'localhost'),
@@ -27,8 +44,8 @@ export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOp
     database: configService.get('DB_NAME', 'xarala_bootcamp'),
     entities: [__dirname + '/../database/entities/*.entity{.ts,.js}'],
     migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-    synchronize: configService.get('NODE_ENV') === 'development',
-    logging: configService.get('NODE_ENV') === 'development',
-    ssl: configService.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
+    synchronize: true,
+    logging: true,
+    ssl: false,
   };
 }; 
