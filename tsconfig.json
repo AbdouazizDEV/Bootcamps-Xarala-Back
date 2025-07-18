@@ -24,5 +24,7 @@
       "@/database/*": ["src/database/*"],
       "@/modules/*": ["src/modules/*"]
     }
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "**/*.test.ts"]
 } 
