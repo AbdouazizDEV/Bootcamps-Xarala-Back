@@ -8,9 +8,17 @@
     {
       "src": "api/test.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "api/health.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/health",
+      "dest": "/api/health.js"
+    },
     {
       "src": "/test",
       "dest": "/api/test.js"
